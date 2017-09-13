@@ -98,7 +98,62 @@ Scenarios:
     NEU.close; NEU.IsOpen = false;
     
 3. Order Pizza from Pizza Hut
+ 3.1 customers make orders by APP, confirm items, price;
+ 3.2 Pizza Hut confirms the orders;
+ 3.3 if the order is declined by either cusstomer or Pizza Hut, loop;
+ 3.4 if the order is confirmed, Pizza Hut makes the pizze and deliver it;
+ 3.5 customers receive pizzas;
+ things:
+  customer:
+   data: contact info
+   behavior: make order, decline order, track order
+  order:
+   data: customer, time, item, price, provider， status
+   behavior:
+  provider:
+   data: contact info, product
+   behavior: confirm order, decline order
+ psuedo:
+  customer YUXIN;
+  provider PH;
+  order NO1;
+  while (NO1.status == declined || NO1.status == null)
+   YUXIN.make order(PH, time, item, price): status;
+   if YUXIN.DoNotNeedPizza
+    YUXIN.decline order; NO1.status = declined;
+   if (PH.product == null)
+    PH.decline order; NO1.status = declined;
+   else PH.confirm order; NO1.status = confirmed;
+ YUXIN.track order(PH):PH.contact info, time, item, price, provider, status;
+ while (NO1.status == delivered)//YUXIN received the package and the trade is closed
+  NO1.status = done;
+   
 
 4. Design a code sharing platform (eg: Github).
-
+ 4.1 assume just one project and several coders;
+ 4.2 corders can upload, download, edit 
 5. Design a soft-drink/snacks vending machine.
+ 5.1 providers charge the machine;
+ 5.2 customers choose what they want(except sold out items);
+ 5.3 customers pay by cash or credit card;
+ 5.4 mechine provide soft-drink/snacks and the change;
+ things:
+  item:
+   data: name, price, stock
+   behavior:getCharged
+  customer:
+   data: order, payment
+   behavior:choose, pay, fatch
+ pseudo:
+  item[] snack;
+  customer YUXIN;
+  loop
+   if (snack[].stock == 0)
+    snack.getCharged():snack[].stock;
+  YUXIN.choose(snack, amount): stock;
+  while (stock >= YUXIN.order)
+   YUXIN.pay(snack): change;
+   snack.stock = snack.stock - YUXIN.order;
+  YUXIN.fatch(snack, change);
+  
+  
