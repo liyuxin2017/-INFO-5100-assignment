@@ -130,8 +130,39 @@ Scenarios:
    
 
 4. Design a code sharing platform (eg: Github).
- 4.1 assume just one project and several coders;
- 4.2 corders can upload, download, edit 
+ 4.1 user sign up;
+ 4.2 user sign in;
+ 4.3 create or choose a project(group);
+ 4.4 upload, download, edit or delete files;
+ things:
+  user: info
+  behavior:sign up
+   data: 
+  user account:
+   data: info, joint group, owned file
+   behavior:sign in, sign out, search group, join in group, leave group, upload, download, edit or delete file
+  group:
+   data: name, category, member, file
+   behavior:
+  file:
+   data: name, content, version
+   behavior:
+  pseudo:
+   user YUXIN;
+   user account liyuxin2017;
+   group INFO5100;
+   file ass1;
+   YUXIN.sign up(info):liyuxin2017;
+   liyuxin2017.sign in;
+   liyuxin2017.search group(name, category, member, file):INFO5100;
+   liyuxin2017.join in group(INFO5100);
+   liyuxin2017.upload file(ass1, INFO5100);
+   liyuxin2017.edit file(ass1):ass1;
+   liyuxin2017.download file(ass1);
+   liyuxin2017.delete file(ass1);
+   liyuxin2017.leave group(INFO5100);
+   liyuxin2017.sign out;
+   
 5. Design a soft-drink/snacks vending machine.
  5.1 providers charge the machine;
  5.2 customers choose what they want(except sold out items);
