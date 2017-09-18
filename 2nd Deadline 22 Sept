@@ -1,0 +1,104 @@
+import java.util.Scanner;
+
+public class Java2 {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Input hours:");
+		int hours = sc.nextInt();
+		System.out.println("Salary:" + employeeSalary(hours));
+		System.out.print("Input int:");
+		int inputint = sc.nextInt();
+		System.out.println("Sum result:" + addDigits(inputint));
+		Pizza classicPizza = new Pizza();
+		Customer YUXIN = new Customer("YUXIN", 1);
+		YUXIN.makeOrder();
+	}
+	public static int addDigits(int input) {
+		int sum = 0;
+		if (input < 0)
+			return -999;
+		if (input < 10)
+			return input;
+		while (input >= 10) {
+			sum = sum + input % 10;
+			input = input / 10;
+		}
+		sum = sum + input;
+		return addDigits(sum);
+	}
+	public static double employeeSalary(int hours) {
+		//The first 36 hours worked are paid at a rate of 15.0, 
+		//then the next 5 hours are paid at a rate of 15 * 1.5. 
+		//Hours after that up to a max of 48 are paid at a rate of 15 * 2.
+		if (hours <= 36) {
+			return hours * 15.0;
+		}
+		else if (hours <= 36 + 5) {
+			return 36 * 15.0 + (hours - 36) * 15 * 1.5;
+		}
+		else if (hours <= 48) {
+			return 36 * 15.0 + 5 * 15 * 1.5 + (hours - 36 - 5) * 15 * 2;
+		}
+		else
+			return -999;
+	}
+}
+class Pizza{
+	byte type;//each number means a type recorder by system
+	byte crust;//each number means a kind of crust recorded by system
+	byte size;
+	boolean cheese;
+	double unitPrice;
+	double loyaltyPoint;
+	Pizza(){//classic pizza style
+		this.type = 1;
+		this.crust = 1;
+		this.size = 7;
+		this.cheese = true;
+		this.unitPrice = 6.99;
+		this.loyaltyPoint = 6.99;
+	}
+	Pizza(byte type, byte crust, byte size, boolean cheese, double unitPrice, double loyaltyPoint){
+		//your built
+		this.type = type;
+		this.crust = crust;
+		this.size = size;
+		this.cheese = cheese;
+		this.unitPrice = unitPrice;
+		this.loyaltyPoint = loyaltyPoint;
+	}
+}
+//i. Create Attributes: customer name and which pizzas customer has ordered. 
+//ii. Think about what kind of data structure can be used to record the pizza name and number of each kind of pizza.( Give me your thought, Extra credit of 1 point)
+//iii. In main method , sum up how much money the customer spent.
+class Customer{
+	String name;
+	int orderNumber;
+	Customer(String name, int orderNumber){
+		this.name = name;
+		this.orderNumber = orderNumber;
+	}
+	void makeOrder() {
+		Scanner sc = new Scanner(System.in);
+		byte[] unitPrice = new byte[100];
+		byte[] amount = new byte[100];
+		int i = 0;
+		double sum = 0;
+		System.out.println("input 0 to end!");
+		System.out.print("input unit price:");
+		unitPrice[i] = sc.nextByte();
+		System.out.print("input amount:");
+		amount[i] = sc.nextByte();
+		sum = sum + unitPrice[i] * amount[i];
+		i++;
+		while(unitPrice[i - 1] > 0 && amount[i - 1] > 0) {
+			System.out.print("input unit price:");
+			unitPrice[i] = sc.nextByte();
+			System.out.print("input amount:");
+			amount[i] = sc.nextByte();
+			sum = sum + unitPrice[i] * amount[i];
+			i++;
+		}
+		System.out.println(this.name + "Tatal price:" + sum);
+	}
+}
