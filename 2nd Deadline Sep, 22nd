@@ -3,15 +3,21 @@ import java.util.Scanner;
 public class Java2 {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		System.out.print("Input hours:");
+		System.out.print("Ass1: Input hours:");
 		int hours = sc.nextInt();
 		System.out.println("Salary:" + employeeSalary(hours));
-		System.out.print("Input int:");
+		System.out.print("Ass2: Input int:");
 		int inputint = sc.nextInt();
 		System.out.println("Sum result:" + addDigits(inputint));
+		System.out.print("Ass3: Input n:");
+		int n = sc.nextInt();
+		printPerfectNumbers(n);
 		Pizza classicPizza = new Pizza();
 		Customer YUXIN = new Customer("YUXIN", 1);
 		YUXIN.makeOrder();
+		System.out.print("Ass6: Input length:");
+		int length = sc.nextInt();
+		printIsoscelesTriangle(length);
 	}
 	public static int addDigits(int input) {
 		int sum = 0;
@@ -42,7 +48,39 @@ public class Java2 {
 		else
 			return -999;
 	}
+	public static void printPerfectNumbers(int n) {
+		int sum;
+		int j = 1;
+		for (int i = 2; i <= n; i++) {
+			sum = 0;
+			j = 1;
+			while (i > j){
+				if (i % j == 0)
+					sum = sum + j;
+				j++;
+			}
+			if (sum == i)
+				System.out.println(i);
+		}
+	}
+	public static void printIsoscelesTriangle(int n) {
+		int i, j;
+		if (n <= 1 || n > 20) {
+			System.out.println("Wrong input!");
+			return;
+		}
+		System.out.println("*");
+		for (i = 0; i < (n - 2); i++) {
+			System.out.print("*");
+			for (j = 1; j < i + 1; j++)
+				System.out.print(" ");
+			System.out.println("*");
+		}
+		for (i = 0; i < n; i++)
+			System.out.print("*");
+	}
 }
+
 class Pizza{
 	byte type;//each number means a type recorder by system
 	byte crust;//each number means a kind of crust recorded by system
@@ -84,7 +122,7 @@ class Customer{
 		byte[] amount = new byte[100];
 		int i = 0;
 		double sum = 0;
-		System.out.println("input 0 to end!");
+		System.out.println("Ass4&5: input 0 to end!");
 		System.out.print("input unit price:");
 		unitPrice[i] = sc.nextByte();
 		System.out.print("input amount:");
