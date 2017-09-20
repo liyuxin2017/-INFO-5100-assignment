@@ -16,8 +16,9 @@ public class Java2 {
 		Customer YUXIN = new Customer("YUXIN", 1);
 		YUXIN.makeOrder();
 		System.out.print("Ass6: Input length:");
-		int length = sc.nextInt();
-		printIsoscelesTriangle(length);
+		int n2 = sc.nextInt();
+		printIsoscelesTriangle(n2);
+		sc.close();
 	}
 	public static int addDigits(int input) {
 		int sum = 0;
