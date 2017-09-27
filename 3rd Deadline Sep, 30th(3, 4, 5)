@@ -1,1 +1,116 @@
-
+public class Ass3 {
+	public static void main(String[] args) {
+		System.out.println("output:" + removeVowelsFromString("aeioutestaeiouhelloworld"));
+		System.out.println(checkIfTwoStringAreAnagrams("liyuxin", "xinuyil"));//true
+		System.out.println(checkIfTwoStringAreAnagrams("1liyuxin123", "xinuyil1234"));//different length
+		System.out.println(checkIfTwoStringAreAnagrams("1liyuxin123", "xin234uyil"));//not anagrams
+	    System.out.println("Ass5: 66.6 + 6.6 = " + addition(66.6, 6.6));
+	    System.out.println("66.6 - 6.6 = " + subtraction(66.6, 6.6));
+	    System.out.println("66.6 * 6.6 = " + multiplication(66.6, 6.6));
+	    System.out.println("66.6 / 6.6 = " + division(66.6, 6.6));
+	    System.out.println("sqrt(81) = " + squareRoot(81));
+	    System.out.println("9 ^ 2 = " + square(9));
+	    System.out.println("9 ^ 3 = " + cube(9));
+	    System.out.println("72F: " + fToC(72) + "C");
+	    System.out.println("22C: " + cToF(22) + "F");
+	    System.out.println("1 feet: " + feetToInches(1) + "inch");
+	    System.out.println("12 feet: " + inchesToFeet(12) + "feet");
+	    double a = 1;
+	    double b = 2;
+	    double c = 1;
+	    if (quadraticEquation(a, b, c)[0] == -999)
+	    	System.out.println("No answer!");
+	    else {
+	    	System.out.print("A, B, C: " + a + " " + b + " "+ c + "  ");
+	    	System.out.println("Answer:" + quadraticEquation(a, b, c)[0] + " " + quadraticEquation(a, b, c)[1]);
+	    }
+	}
+	public static String removeVowelsFromString(String input) {
+		System.out.println("Ass3: nput:" + input);
+		input = input.replace("a", "");
+		input = input.replace("e", "");
+		input = input.replace("i", "");
+		input = input.replace("o", "");
+		input = input.replace("u", "");
+		input = input.replace("A", "");
+		input = input.replace("E", "");
+		input = input.replace("I", "");
+		input = input.replace("O", "");
+		input = input.replace("U", "");
+		return input;
+	}
+	public static boolean checkIfTwoStringAreAnagrams(String s1, String s2) {
+		System.out.println("Ass4: " + s1 + "   " + s2);
+		if (s1.length() != s2.length())
+			return false;
+		if (s1.equals(s2))
+			return false;
+		char[] c1 = s1.toCharArray();
+		char[] c2 = s2.toCharArray();
+		BubbleSort(c1);
+		BubbleSort(c2);
+		for (int i = 0; i < c1.length; i++) {
+			if (c1[i] != c2[i])
+				return false;
+		}
+		return true;
+	}
+	public static void BubbleSort(char[] arr) {
+		for (int i = 0; i < arr.length-1; i++) {
+			for (int j = i+1; j < arr.length; j++) {
+				if (arr[i] > arr [j])
+					swap(arr, i, j);
+			}
+		}
+	}
+	public static void swap(char[] arr, int i, int j) {
+		char temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
+	}
+	public static double addition(double a, double b) {
+		return a + b;
+	}
+	public static double subtraction(double a, double b) {
+		return a - b;
+	}
+	public static double multiplication(double a, double b) {
+		return a * b;
+	}
+	public static double division(double a, double b) {
+		return a / b;
+	}
+	public static double squareRoot(double a) {
+		return Math.sqrt(a);
+	}
+	public static double square(double a) {
+		return a * a;
+	}
+	public static double cube(double a) {
+		return a * a * a;
+	}
+	public static double fToC(double a) {
+		return (a - 32) / 1.8;
+	}
+	public static double cToF(double a) {
+		return a * 1.8 + 32;
+	}
+	public static double feetToInches(double a) {
+		return a * 12
+	}
+	public static double inchesToFeet(double a) {
+		return a / 12;
+	}
+	public static double[] quadraticEquation(double a, double b, double c) {
+		double[] result = {-999, -999};
+		double d = b * b - 4 * a * c;
+		if (d < 0) {
+			return result;
+		}
+		else {
+			result[0] = (-b + Math.sqrt(d)) / 2 / a;
+			result[1] = (-b - Math.sqrt(d)) / 2 / a;
+			return result;
+		}
+	}
+}
