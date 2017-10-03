@@ -1,0 +1,281 @@
+public class Ass4 {
+public static void main(String[] args) {
+	//ass1
+	int k = 8;
+	String s = "vv4-fdbs4-3r32bf-4354gf-4232gggdg";
+	System.out.println("Ass1: input: S = " + s + ", K = "+ k);
+	System.out.println("output: " + formatLicenseKey(s, k));
+	//ass2
+	Rock r = new Rock(10);
+	Paper p = new Paper(10);
+	Scissors sc = new Scissors(10);
+	if (sc.fight(r))
+		System.out.println(sc.getClass() + " wins!");
+	else
+		System.out.println(sc.getClass() + " does not win!");
+	//ass3
+	IPAddress ip = new IPAddress("192.168.1.1");
+	System.out.println("Ass3: IP: " + ip.getDottedDecimal());
+	System.out.println(ip.getOctet(4));
+	System.out.println(ip.getOctet(1));
+	System.out.println(ip.getOctet(3));
+	System.out.println(ip.getOctet(2));
+	//ass4
+	System.out.println("Ass4: ");
+	Student stu1 = new Student("stu1", "1");
+	Course maths = new Course("maths");
+	System.out.println(maths.isFull());
+	System.out.println(maths.getNumberOfStudent());
+	System.out.println(maths.registerStudent(stu1));
+	System.out.println(maths.getNumberOfStudent());
+	//ass5
+	System.out.println("Ass5: " + 1234 + "  " + intToRoman(1234));
+	//ass6
+	int[] num1 = {1, 3, 5, 7, 9};
+	int[] num2 = {0, 2, 4, 6, 8, 10, 12, 14};
+	System.out.println("Ass6: The median is: " + findMedianSortedArrays(num1, num2));
+}
+public static double findN(int[] num1, int[] num2, int n) {
+	double result = 0;
+	int low = 0;
+	int high = 0;
+	for (int i = 0; i < n; i++) {
+		if (low == num1.length) {
+			result = num2[high];
+			high++;
+		}
+		else if (num1[low] <= num2[high]) {
+			result = num1[low];
+			low++;
+		}
+		else {
+			result = num2[high];
+			high++;
+		}
+	}
+	return result;
+}
+public static double findMedianSortedArrays(int[] num1, int[] num2) {
+	if (num1.length > num2.length)
+		return findMedianSortedArrays(num2, num1);
+	int length = num1.length + num2.length;
+	if (length % 2 == 1)
+		return findN(num1, num2, length / 2 + 1);
+	else {
+		double temp =  findN(num1, num2, length / 2 + 1) / 2;
+		return findN(num1, num2, length / 2) + temp;
+		}
+}
+public static String formatLicenseKey(String s, int k) {
+	s = s.replace("-", "");
+	int i = 0;
+	for (i = 0; i < 26; i++) {
+		char c1 = (char) (i + 97);
+		char c2 = (char) (i + 65);
+		s = s.replace(c1, c2);//s= s.toUpperCase();
+	}
+	i = s.length() % k;
+	String key = new String();
+	key = key.concat(s.substring(0, s.length() % k));
+	while (i < s.length()) {
+		if (!key.equals(""))
+			key = key.concat("-");
+		key = key.concat(s.substring(i, i + k));
+		i = i + k;
+	}
+	return key;
+}
+public static String intToRoman(int num) {
+	String digit[] = {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};  
+	String ten[] = {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"};  
+	String hundred[] = {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"};  
+	String thousand[] = {"", "M", "MM", "MMM"};  
+	return thousand[num / 1000] + hundred[num % 1000 / 100] + ten[num % 100 / 10] + digit[num % 10];
+	}
+}
+class Tool{
+	protected int strength;
+	protected char type;
+	public void setStrength(int strength) {
+		this.strength = strength;
+	}
+}
+class Rock extends Tool{
+	public Rock(int strength) {
+		this.strength = strength;
+		this.type = 'r';
+	}
+	public boolean fight(Tool tool) {
+		System.out.println("Ass2: " + this.getClass() + " vs " + tool.getClass());
+		int str1 = 0;
+		int str2 = 0;
+		if (tool.type == 's') {
+			str1 = this.strength * 2;
+			str2 = tool.strength / 2;
+		}
+		else if (tool.type == 'r') {
+			str1 = this.strength;
+			str2 = this.strength;
+		}
+		else {
+			str1 = this.strength / 2;
+			str2 = tool.strength * 2;
+		}
+		if (str1 > str2)
+			return true;
+		else
+			return false;
+	}
+}
+class Paper extends Tool{
+	public Paper(int strength) {
+		this.strength = strength;
+		this.type = 'p';
+	}
+	public boolean fight(Tool tool) {
+		System.out.println("Ass2: " + this.getClass() + " vs " + tool.getClass());
+		int str1 = 0;
+		int str2 = 0;
+		if (tool.type == 'r') {
+			str1 = this.strength * 2;
+			str2 = tool.strength / 2;
+		}
+		else if (tool.type == 'p') {
+			str1 = this.strength;
+			str2 = this.strength;
+		}
+		else {
+			str1 = this.strength / 2;
+			str2 = tool.strength * 2;
+		}
+		if (str1 > str2)
+			return true;
+		else
+			return false;
+	}
+}
+class Scissors extends Tool{
+	public Scissors(int strength) {
+		this.strength = strength;
+		this.type = 's';
+	}
+	public boolean fight(Tool tool) {
+		System.out.println("Ass2: " + this.getClass() + " vs " + tool.getClass());
+		int str1 = 0;
+		int str2 = 0;
+		if (tool.type == 'p') {
+			str1 = this.strength * 2;
+			str2 = tool.strength / 2;
+		}
+		else if (tool.type == 's') {
+			str1 = this.strength;
+			str2 = this.strength;
+		}
+		else {
+			str1 = this.strength / 2;
+			str2 = tool.strength * 2;
+		}
+		if (str1 > str2)
+			return true;
+		else
+			return false;
+	}
+}
+class IPAddress{
+	protected String dottedDecimal;
+	protected int firstOctet;
+	protected int secondOctet;
+	protected int thirdOctet;
+	protected int fourthOctet;
+	public IPAddress(String dottedDecimal) {
+		this.dottedDecimal = dottedDecimal;
+		String[] octet = dottedDecimal.split("\\.");
+		firstOctet = Integer.parseInt(octet[0]);
+		secondOctet = Integer.parseInt(octet[1]);
+		thirdOctet = Integer.parseInt(octet[2]);
+		fourthOctet = Integer.parseInt(octet[3]);
+	}
+	public String getDottedDecimal() {
+		return dottedDecimal;
+	}
+	public int getOctet(int i) {
+		int octet = 0;
+		switch (i) {
+		case 1:
+			octet = firstOctet;
+			break;
+		case 2:
+			octet = secondOctet;
+			break;
+		case 3:
+			octet = thirdOctet;
+			break;
+		case 4:
+			octet = fourthOctet;
+			break;
+		}
+		return octet;
+	}
+}
+class Student{
+	protected String name;
+	protected String id;
+	public Student(String name, String id) {
+		this.name = name;
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+}
+class Course{
+	protected String name;
+	protected int numberOfStudent;
+	Student[] students = new Student[10];
+	public Course(String name) {
+		this.name = name;
+		this.numberOfStudent = 0;
+	}
+	public Student[] getStudents() {
+		return students;
+	}
+	public boolean isFull() {
+		if (numberOfStudent == 10)
+			return true;
+		else
+			return false;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getNumberOfStudent() {
+		return numberOfStudent;
+	}
+	public void setNumberOfStudent(int numberOfStudent) {
+		this.numberOfStudent = numberOfStudent;
+	}
+	public boolean registerStudent(Student student) {
+		if (this.isFull() == true)
+			return false;
+		else
+		{
+			this.numberOfStudent++;
+			for (int i = 0; i < this.students.length; i++)
+				if (this.students[i] == null)
+					this.students[i] = student;
+		}
+		return true;
+	}
+}
