@@ -1,0 +1,139 @@
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
+
+public class Hangman {
+	private ArrayList<String> words = new ArrayList<String>();
+	private ArrayList<String>  correctWords = new ArrayList<String>();
+	private ArrayList<String> wrongWords = new ArrayList<String>();
+	private String chosenWord = new String();
+	private String shownWord = new String();
+	public static void main(String[] args) {
+		Hangman hm = new Hangman();
+		hm.addWords("apple");
+		hm.addWords("banana");
+		hm.addWords("peach");
+		hm.addWords("lemon");
+		//add words freely;
+		hm.playGame();
+	}
+	public boolean gameWon() {
+		if (shownWord.equals(chosenWord)) {
+			return true;
+		}
+		else
+			return false;
+	}
+	public void gameOver() {
+		System.out.println("Game Over!");
+		System.out.println("The word is: " + chosenWord);
+		System.exit(0);
+	}
+	public void printHangman() {
+		System.out.println(" -----------");
+		if (wrongWords.size() >= 1) {
+			System.out.println("|          |");
+			System.out.println("|          0");
+		}
+		else {
+			System.out.println("|           ");
+			System.out.println("|           ");
+		}
+		if (wrongWords.size() >= 2)
+			System.out.println("|          |");
+		else
+			System.out.println("|           ");
+		if (wrongWords.size() >= 3)
+			System.out.print("|       --- ");
+		else
+			System.out.print("|           ");
+		if (wrongWords.size() >= 4)
+			System.out.println("--- ");
+		else
+			System.out.println("");
+		if (wrongWords.size() >= 5)
+			System.out.print("|         / ");
+		else
+			System.out.print("|           ");
+		if (wrongWords.size() >= 6)
+			System.out.println("\\");
+		else
+			System.out.println("");
+		if (wrongWords.size() >= 7)
+			System.out.print("|      __");
+		else
+			System.out.print("|           ");
+		if (wrongWords.size() >= 8) {
+			System.out.println("     __");
+			System.out.println("|_______________");
+		}
+		else {
+			System.out.println("");
+			System.out.println("|_______________");
+		}	
+	}
+	public void playGame() {
+		this.chooseWord();
+		Scanner sc = new Scanner(System.in);
+		System.out.println("welcome to game Hangman!");
+		while (wrongWords.size() != 8) {
+			System.out.println("The word is: " + shownWord);
+			System.out.print("Your input: ");
+			String guess = sc.nextLine();
+			if (guess.length() > 1) {
+				System.out.print("Invalid Input!");
+				System.exit(0);
+			}
+			this.handleGuess(guess);
+			this.printHangman();
+			for (int i = 0; i < 10; i++)
+				System.out.println("");
+			if (this.gameWon()) {
+				sc.close();
+				System.out.println("The word is: " + chosenWord);
+				System.out.println("congratulations! You won!");
+				System.exit(0);
+			}
+		}
+		sc.close();
+		this.gameOver();
+	}
+	public void addWords(String word) {
+		words.add(word);
+	}
+	public ArrayList<String> getWords() {
+		return words;
+	}
+	public void chooseWord() {
+		Random r = new Random();
+		int num = r.nextInt(this.getWords().size());
+		this.setChosenWord(this.getWords().get(num));
+		for (int i = 0; i < chosenWord.length(); i++)
+			shownWord = shownWord.concat("-");
+	}
+	public boolean handleGuess(String guess) {
+		char cc = guess.charAt(0);
+		char[] c1 = chosenWord.toCharArray();
+		char[] c2 = shownWord.toCharArray();
+		boolean b = false;
+		for (int i = 0; i < c1.length; i++) {
+			if (c1[i] == cc) {
+				b= true;
+				c2[i] = cc;
+			}
+		}
+		shownWord = new String(c2);
+		if (b)
+			correctWords.add(guess);
+		else
+			wrongWords.add(guess);
+		return b;
+	}
+	public void setChosenWord(String chosenWord) {
+		this.chosenWord = chosenWord;
+	}
+
+	public void setShownWord(String shownWord) {
+		this.shownWord = shownWord;
+	}
+}
