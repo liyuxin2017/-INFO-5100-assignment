@@ -1,0 +1,65 @@
+import java.util.ArrayList;
+
+public class SpiralOrder {
+	public static void main(String[] args) {
+		int[][] matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {10, 11, 12}, {13, 14, 15}};
+		System.out.println("The matrix: ");
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix[i].length; j++)
+				System.out.print(matrix[i][j] + " ");
+			System.out.println("");
+		}
+		System.out.println("The result: " + spiralOrder(matrix));
+	}
+	public static ArrayList<Integer> spiralOrder(int[][] matrix){
+		if (matrix.length == 0)
+			return null;
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		int top = 0;
+		int bottom = matrix.length - 1;
+		int left = 0;
+		int right = matrix[0].length - 1;
+		int m = 0;
+		int n = 0;
+		int length = matrix.length * matrix[0].length;
+		while (top <= bottom && left <= right) {
+			while (n <= right) {
+				result.add(matrix[m][n]);
+				n++;
+			}
+			if (result.size() == length)
+				break;
+			n--;
+			m++;
+			top++;
+			while (m <= bottom) {
+				result.add(matrix[m][n]);
+				m++;
+			}
+			if (result.size() == length)
+				break;
+			m--;
+			n--;
+			right--;
+			while (n >= left) {
+				result.add(matrix[m][n]);
+				n--;
+			}
+			if (result.size() == length)
+				break;
+			n++;
+			m--;
+			bottom--;
+			while (m >= top) {
+				result.add(matrix[m][n]);
+				m--;
+			}
+			if (result.size() == length)
+				break;
+			m++;
+			n++;
+			left++;
+		}
+		return result;
+	}
+}
