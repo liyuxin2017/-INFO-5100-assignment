@@ -149,9 +149,13 @@ public class Hand extends GroupOfCards {
 	private int findHighestBelow(Card winningCard) {
 		for (int i = 0; i < getCurrentSize(); i++)
 			if (getCards(i).getSuit() == winningCard.getSuit())
-				if (getCards(i).getNum() < winningCard.getNum())
-					if (i != getCurrentSize() - 1 && getCards(i + 1).getSuit() == winningCard.getSuit())
-						return i;
+				if (getCards(i).getNum() < winningCard.getNum()) {
+					if (i != getCurrentSize() - 1) {
+						if (getCards(i + 1).getSuit() != winningCard.getSuit())
+							break;
+					}
+					return i;
+				}
 		return -1;
 	}
 
