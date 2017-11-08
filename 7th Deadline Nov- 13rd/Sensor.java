@@ -17,8 +17,8 @@ public class Sensor extends Thread {
 	}
 
 	public void run() {
-		synchronized (device) {
-			while (true) {
+		while (true) {
+			synchronized (device) {
 				this.updateValue();
 				device.notify();
 			}
