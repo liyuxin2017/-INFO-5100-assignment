@@ -136,4 +136,4 @@ public class Hangman {
 	public void setShownWord(String shownWord) {
 		this.shownWord = shownWord;
 	}
-}
+} 
