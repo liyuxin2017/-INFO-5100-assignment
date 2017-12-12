@@ -64,5 +64,4 @@ public class AtmTest {
 	@Test
 	public void testExit() {
 	}
-
 }
