@@ -25,4 +25,4 @@ public class Partition {
 		return findPartition(arr, current - 1, sum1 - arr[current], sum2)
 				|| findPartition(arr, current - 1, sum1, sum2 - arr[current]);
 	}
-}
+} 
